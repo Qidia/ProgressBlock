@@ -21,8 +21,7 @@
 }
 
 .controlPanel {
-  height: 25vh;
-  max-height: 20%;
+  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
