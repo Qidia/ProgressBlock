@@ -1,7 +1,7 @@
 .main {
   height: 100%;
   width: 100%;
-  font-size: 3vw; /* Размер шрифта зависит от ширины экрана */
+  font-size: 1rem;
 }
 
 .center {
@@ -21,7 +21,7 @@
 }
 
 .controlPanel {
-  height: 15vh;
+  height: 25vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -39,7 +39,6 @@
   }
 
   .controlPanel {
-    height: auto; /* Убираем фиксированную высоту */
     margin-top: 0; /* Убираем отступ сверху */
     margin-left: 6vw;
   }
