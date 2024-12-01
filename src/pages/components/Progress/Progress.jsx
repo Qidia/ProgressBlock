@@ -5,7 +5,7 @@ import styles from "./Progress.module.css"; // Импорт модульных C
  * Компонент Progress отображает круговой индикатор прогресса.
  *
  * @param {Object} props - Пропсы компонента
- * @param {string|number} props.progress - Значение прогресса (от 0 до 100).
+ * @param {number} props.progress - Значение прогресса (от 0 до 100).
  * Если передается некорректное значение, используется 0.
  *
  * @returns {JSX.Element} Круговой прогресс-бар

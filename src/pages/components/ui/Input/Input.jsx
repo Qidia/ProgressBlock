@@ -20,6 +20,8 @@ export default function Input(props) {
           type={type}
           checked={checked}
           onChange={onChange}
+          min="0"
+          max="100"
         />
         <label>{text}</label>
       </div>

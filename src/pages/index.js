@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import localFont from "next/font/local";
 import styles from "@/styles/Home.module.css";
@@ -19,11 +19,20 @@ const geistMono = localFont({
 
 export default function Home() {
   const [isProgressVisible, setIsProgressVisible] = useState(true); // Состояние для управления видимостью Progress
-  const [isChecked, setIsChecked] = useState(false); // Состояние для чекбокса
+  const [isChecked, setIsChecked] = useState(false); // Состояние для чекбокса Hide
+  const [progressValue, setProgressValue] = useState(0); // Состояние для прогресса
 
+
+  // Функция для скрытия/показа Progress
   const handleHideChange = (checked) => {
     setIsChecked(checked);
     setIsProgressVisible(!checked); // Если чекбокс отмечен, скрываем Progress
+  };
+
+  // Функция для обновления прогресса
+  const handleInputChange = (e) => {
+    const value = Math.min(Math.max(0, parseInt(e.target.value, 10) || 0), 100); // Ограничиваем диапазон от 0 до 100
+    setProgressValue(value);
   };
 
   return (
@@ -42,9 +51,9 @@ export default function Home() {
             checked={isChecked} // Передаем текущее состояние
             onChange={handleHideChange} // Обработчик для изменения
           />
-          <Input text="Value" type="number" />
+          <Input text="Value" type="number" onChange={handleInputChange} />
 
-          {isProgressVisible && <Progress progress="32" />}
+          {isProgressVisible && <Progress progress={progressValue} />}
         </main>
       </div>
     </>
