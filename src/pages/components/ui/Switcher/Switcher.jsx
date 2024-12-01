@@ -6,17 +6,20 @@ import styles from "./Switcher.module.css";
  * Создает переключатель.
  *
  * @param {string} text - Текст рядом с переключателем.
- * @param {boolean} state - Начальное состояние переключателя.
+ * @param {boolean} checked - Состояние чекбокса.
+ * @param {Function} onChange - Обработчик изменения состояния чекбокса.
  */
 export default function Switcher(props) {
-  const { text, state } = props;
+  const { text, checked, onChange } = props;
 
   return (
     <div className={styles.container}>
       <Input
         type="checkbox"
-        text={`${text}`}
+        text={text}
         className={`${styles.input} ${styles.switch}`}
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
       />
     </div>
   );
