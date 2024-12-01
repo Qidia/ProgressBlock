@@ -1,0 +1,16 @@
+.svg {
+  --bg-progress: #b8babe;
+  --bg-circle: #bbdcdb;
+
+  transform: rotate(-90deg); /* Чтобы начало прогресса было сверху */
+  stroke-width: 15; /* Общая ширина обводки */
+}
+
+.svg circle {
+  stroke: var(--bg-circle);
+}
+
+.svg .progressCircle {
+  stroke: var(--bg-progress);
+  transition: stroke-dashoffset 0.5s ease;
+}
