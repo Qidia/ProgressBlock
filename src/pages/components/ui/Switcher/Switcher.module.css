@@ -4,7 +4,7 @@
     --switch-bg-active: #bbdcdb; /* Цвет фона включенного состояния */
     --switch-bg-inactive: #e0e0e0; /* Цвет фона выключенного состояния */
     --switch-indicator: #ffffff; /* Цвет бегунка */
-    --switch-transition: 0.3s ease; /* Общий переход */
+    --switch-transition: 0.1s ease; /* Общий переход */
   }
 
   .switch:checked {

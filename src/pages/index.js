@@ -18,22 +18,61 @@ const geistMono = localFont({
 });
 
 export default function Home() {
-  const [isProgressVisible, setIsProgressVisible] = useState(true); // Состояние для управления видимостью Progress
-  const [isChecked, setIsChecked] = useState(false); // Состояние для чекбокса Hide
-  const [progressValue, setProgressValue] = useState(0); // Состояние для прогресса
-
+  // Состояния для различных параметров
+  const [isProgressVisible, setIsProgressVisible] = useState(true); // Управляет видимостью прогресса
+  const [isChecked, setIsChecked] = useState(false); // Управляет состоянием чекбокса Hide
+  const [progressValue, setProgressValue] = useState(0); // Хранит значение, введенное пользователем для прогресса
+  const [isAnimated, setIsAnimated] = useState(false); // Управляет состоянием переключателя "Animated"
+  const [currentProgress, setCurrentProgress] = useState(0); // Текущее значение прогресса для анимации
 
   // Функция для скрытия/показа Progress
   const handleHideChange = (checked) => {
     setIsChecked(checked);
-    setIsProgressVisible(!checked); // Если чекбокс отмечен, скрываем Progress
+    setIsProgressVisible(!checked);
   };
 
-  // Функция для обновления прогресса
+  // Функция для переключения состояния анимации
+  const handleAnimatedChange = (checked) => {
+    setIsAnimated(checked);
+    if (!checked) {
+      // Если анимация выключена, устанавливаем текущий прогресс равным значению, введенному пользователем
+      setCurrentProgress(progressValue);
+    }
+  };
+
+  // Функция для обновления прогресса, вводимого пользователем
   const handleInputChange = (e) => {
     const value = Math.min(Math.max(0, parseInt(e.target.value, 10) || 0), 100); // Ограничиваем диапазон от 0 до 100
     setProgressValue(value);
   };
+
+  // Используем useEffect для анимации
+  useEffect(() => {
+    let intervalId;
+
+    if (isAnimated) {
+      // Запускаем интервал, который будет увеличивать текущий прогресс
+      intervalId = setInterval(() => {
+        setCurrentProgress((prev) => {
+          if (prev < progressValue) {
+            // Увеличиваем прогресс, если он меньше введенного значения
+            return prev + 1;
+          } else {
+            setTimeout(() => {
+              setCurrentProgress(0); // Сбрасываем прогресс в 0
+            }, 2000); // Задержка перед новым циклом
+            return prev; // Возвращаем текущее значение прогресса
+          }
+        });
+      }, 50); // Интервал обновления (50 мс для плавной анимации)
+    } else {
+      // Если анимация выключена, сразу устанавливаем прогресс в значение, введенное пользователем
+      setCurrentProgress(progressValue);
+    }
+
+    // Очищаем интервал при размонтировании компонента или при изменении состояния анимации
+    return () => clearInterval(intervalId);
+  }, [isAnimated, progressValue]);
 
   return (
     <>
@@ -45,15 +84,27 @@ export default function Home() {
       <div className={`${geistSans.variable} ${geistMono.variable}`}>
         <main className={styles.main}>
           <p>test</p>
-          <Switcher text="Animated" state={false} />
+          {/* Переключатель для управления анимацией */}
+          <Switcher
+            text="Animated"
+            checked={isAnimated}
+            onChange={handleAnimatedChange}
+          />
+          {/* Переключатель для управления видимостью прогресса */}
           <Switcher
             text="Hide"
-            checked={isChecked} // Передаем текущее состояние
-            onChange={handleHideChange} // Обработчик для изменения
+            checked={isChecked}
+            onChange={handleHideChange}
           />
-          <Input text="Value" type="number" onChange={handleInputChange} />
+          {/* Поле ввода для значения прогресса */}
+          <Input
+            text="Value"
+            type="number"
+            value={progressValue} // Привязываем значение к состоянию
+            onChange={handleInputChange}
+          />
 
-          {isProgressVisible && <Progress progress={progressValue} />}
+          {isProgressVisible && <Progress progress={currentProgress} />}
         </main>
       </div>
     </>
