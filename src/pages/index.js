@@ -1,6 +1,8 @@
 import Head from "next/head";
 import localFont from "next/font/local";
 import styles from "@/styles/Home.module.css";
+import Switcher from "./components/ui/Switcher/Switcher";
+import Input from "./components/ui/Input/Input";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,6 +28,9 @@ export default function Home() {
       >
         <main className={styles.main}>
           <p>test</p>
+          <Switcher text="Animated" state="false"/>
+          <Switcher text="Hide" state="true"/>
+          <Input text="Value" type="number"/>
         </main>
       </div>
     </>
