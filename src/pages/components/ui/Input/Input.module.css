@@ -3,9 +3,9 @@
   .input[type="number"],
   .input[type="checkbox"] {
     /* Основные переменные для стилей */
-    --checkbox-border: #818585;
-    --checkbox-background: #b3b9b9;
-    --number-border: #818585;
+    --checkbox-border: #606a6a;
+    --checkbox-background: #92969c;
+    --number-border: #6f7272;
     --number-background: #ffffff;
     --input-border-radius: 11px;
     --input-height: 20px;
@@ -15,6 +15,7 @@
     -webkit-appearance: none; /* Сброс стилей браузера */
     -moz-appearance: none;
 
+    box-sizing: border-box;
     outline: none;
     display: inline-block;
     vertical-align: top;

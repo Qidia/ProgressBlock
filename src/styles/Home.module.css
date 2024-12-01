@@ -43,3 +43,8 @@
     margin-left: 6vw;
   }
 }
+
+/* Класс для скрытия панели прогресса */
+.hidden {
+  visibility: hidden;
+}

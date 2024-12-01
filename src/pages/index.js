@@ -19,7 +19,6 @@ const geistMono = localFont({
 
 export default function Home() {
   // Состояния для различных параметров
-  const [isProgressVisible, setIsProgressVisible] = useState(true); // Управляет видимостью прогресса
   const [isChecked, setIsChecked] = useState(false); // Управляет состоянием чекбокса Hide
   const [progressValue, setProgressValue] = useState(0); // Хранит значение, введенное пользователем для прогресса
   const [isAnimated, setIsAnimated] = useState(false); // Управляет состоянием переключателя "Animated"
@@ -28,7 +27,6 @@ export default function Home() {
   // Функция для скрытия/показа Progress
   const handleHideChange = (checked) => {
     setIsChecked(checked);
-    setIsProgressVisible(!checked);
   };
 
   // Функция для переключения состояния анимации
@@ -84,16 +82,16 @@ export default function Home() {
       <div className={`${geistSans.variable} ${geistMono.variable}`}>
         <main className={styles.main}>
           <div className={`${styles.progress} ${styles.center}`}>
-            <div className={`${styles.progressPanel}`}>
-              {isProgressVisible && <Progress progress={currentProgress} />}
+            <div className={`${isChecked ? styles.hidden : ""}`}>
+              <Progress progress={currentProgress} />
             </div>
 
-            <div className={`${styles.controlPanel}`}>
+            <div className={styles.controlPanel}>
               {/* Поле ввода для значения прогресса */}
               <Input
                 text="Value"
                 type="number"
-                value={progressValue} // Привязываем значение к состоянию
+                value={progressValue}
                 onChange={handleInputChange}
               />
 
