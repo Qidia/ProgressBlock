@@ -1,0 +1,35 @@
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  .switch {
+    --switch-border: #b8babe; /* Цвет границы бегунка */
+    --switch-bg-active: #bbdcdb; /* Цвет фона включенного состояния */
+    --switch-bg-inactive: #e0e0e0; /* Цвет фона выключенного состояния */
+    --switch-indicator: #ffffff; /* Цвет бегунка */
+    --switch-transition: 0.3s ease; /* Общий переход */
+  }
+
+  .switch:checked {
+    background: var(
+      --switch-bg-active
+    ); /* Цвет фона для включенного состояния */
+  }
+
+  /* Индикатор переключателя (бегунок) */
+  .switch:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%; /* Центрируем по вертикали */
+    left: 2px; /* Начальное смещение от левого края */
+    width: 16px; /* Ширина бегунка */
+    height: 16px; /* Высота бегунка */
+    border-radius: 50%;
+    background: var(--switch-indicator); /* Цвет бегунка */
+    transform: translate(0, -50%); /* Центрирование по оси Y */
+    transition: transform var(--switch-transition);
+  }
+
+  /* Перемещение бегунка при включении */
+  .switch:checked:after {
+    transform: translate(18px, -50%);
+  }
+}
