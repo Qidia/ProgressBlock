@@ -5,7 +5,7 @@ import styles from "@/styles/Home.module.css";
 import Switcher from "./components/ui/Switcher/Switcher";
 import Input from "./components/ui/Input/Input";
 import Progress from "./components/Progress/Progress";
-import { useProgressAPI } from "./components/hooks/useProgressAPI";
+import { useProgressAPI } from "../hooks/useProgressAPI";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
