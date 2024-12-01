@@ -1,7 +1,7 @@
 .main {
   height: 100%;
   width: 100%;
-  font-size: 3vw;  /* Размер шрифта зависит от ширины экрана */
+  font-size: 3vw; /* Размер шрифта зависит от ширины экрана */
 }
 
 .center {
@@ -29,5 +29,18 @@
 }
 
 .controlPanel label {
-    margin-left: 2vw; 
+  margin-left: 2vw;
+}
+
+/* Медиазапрос для экранов шириной более 568px (горизонтальная ориентация) */
+@media (min-width: 568px) {
+  .progress {
+    flex-direction: row;
+  }
+
+  .controlPanel {
+    height: auto; /* Убираем фиксированную высоту */
+    margin-top: 0; /* Убираем отступ сверху */
+    margin-left: 6vw;
+  }
 }

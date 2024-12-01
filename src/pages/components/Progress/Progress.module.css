@@ -3,7 +3,7 @@
   --bg-circle: #b3d1d0;
 
   transform: rotate(-90deg); /* Чтобы начало прогресса было сверху */
-  stroke-width: 2vw; /* Общая ширина обводки */
+  stroke-width: 15; /* Общая ширина обводки */
 }
 
 .svg circle {
