@@ -1,9 +1,9 @@
 .svg {
-  --bg-progress: #b8babe;
-  --bg-circle: #bbdcdb;
+  --bg-progress: #92969c;
+  --bg-circle: #b3d1d0;
 
   transform: rotate(-90deg); /* Чтобы начало прогресса было сверху */
-  stroke-width: 15; /* Общая ширина обводки */
+  stroke-width: 2vw; /* Общая ширина обводки */
 }
 
 .svg circle {

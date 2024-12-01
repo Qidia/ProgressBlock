@@ -83,28 +83,35 @@ export default function Home() {
 
       <div className={`${geistSans.variable} ${geistMono.variable}`}>
         <main className={styles.main}>
-          <p>test</p>
-          {/* Переключатель для управления анимацией */}
-          <Switcher
-            text="Animated"
-            checked={isAnimated}
-            onChange={handleAnimatedChange}
-          />
-          {/* Переключатель для управления видимостью прогресса */}
-          <Switcher
-            text="Hide"
-            checked={isChecked}
-            onChange={handleHideChange}
-          />
-          {/* Поле ввода для значения прогресса */}
-          <Input
-            text="Value"
-            type="number"
-            value={progressValue} // Привязываем значение к состоянию
-            onChange={handleInputChange}
-          />
+          <div className={`${styles.progress} ${styles.center}`}>
+            <div className={`${styles.progressPanel}`}>
+              {isProgressVisible && <Progress progress={currentProgress} />}
+            </div>
 
-          {isProgressVisible && <Progress progress={currentProgress} />}
+            <div className={`${styles.controlPanel}`}>
+              {/* Поле ввода для значения прогресса */}
+              <Input
+                text="Value"
+                type="number"
+                value={progressValue} // Привязываем значение к состоянию
+                onChange={handleInputChange}
+              />
+
+              {/* Переключатель для управления анимацией */}
+              <Switcher
+                text="Animated"
+                checked={isAnimated}
+                onChange={handleAnimatedChange}
+              />
+
+              {/* Переключатель для управления видимостью прогресса */}
+              <Switcher
+                text="Hide"
+                checked={isChecked}
+                onChange={handleHideChange}
+              />
+            </div>
+          </div>
         </main>
       </div>
     </>

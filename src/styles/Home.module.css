@@ -1,0 +1,33 @@
+.main {
+  height: 100%;
+  width: 100%;
+  font-size: 3vw;  /* Размер шрифта зависит от ширины экрана */
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.progress {
+  height: 90%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlPanel {
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 5vh;
+}
+
+.controlPanel label {
+    margin-left: 2vw; 
+}

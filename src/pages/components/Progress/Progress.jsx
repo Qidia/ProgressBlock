@@ -15,7 +15,7 @@ export default function Progress({ progress }) {
     ? 0
     : parseInt(progress, 10);
   const radius = 90; // Радиус окружности (в пикселях)
-  const circumference = 2 * Math.PI * radius; // Длина окружност
+  const circumference = 2 * Math.PI * radius; // Длина окружности
   const offset = circumference - (progressInt / 100) * circumference; // Смещение обводки
 
   return (
@@ -25,7 +25,7 @@ export default function Progress({ progress }) {
           className={`${styles.svg}`}
           width="200"
           height="200"
-          viewPort="0 0 100 100" // Указываем область просмотра SVG
+          viewBox="0 0 200 200" // Обновлено на правильный размер
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
         >
