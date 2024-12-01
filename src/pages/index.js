@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import localFont from "next/font/local";
 import styles from "@/styles/Home.module.css";
 import Switcher from "./components/ui/Switcher/Switcher";
 import Input from "./components/ui/Input/Input";
 import Progress from "./components/Progress/Progress";
+import { useProgressAPI } from "./components/hooks/useProgressAPI";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -18,59 +19,7 @@ const geistMono = localFont({
 });
 
 export default function Home() {
-  // Состояния для различных параметров
-  const [isChecked, setIsChecked] = useState(false); // Управляет состоянием чекбокса Hide
-  const [progressValue, setProgressValue] = useState(0); // Хранит значение, введенное пользователем для прогресса
-  const [isAnimated, setIsAnimated] = useState(false); // Управляет состоянием переключателя "Animated"
-  const [currentProgress, setCurrentProgress] = useState(0); // Текущее значение прогресса для анимации
-
-  // Функция для скрытия/показа Progress
-  const handleHideChange = (checked) => {
-    setIsChecked(checked);
-  };
-
-  // Функция для переключения состояния анимации
-  const handleAnimatedChange = (checked) => {
-    setIsAnimated(checked);
-    if (!checked) {
-      // Если анимация выключена, устанавливаем текущий прогресс равным значению, введенному пользователем
-      setCurrentProgress(progressValue);
-    }
-  };
-
-  // Функция для обновления прогресса, вводимого пользователем
-  const handleInputChange = (e) => {
-    const value = Math.min(Math.max(0, parseInt(e.target.value, 10) || 0), 100); // Ограничиваем диапазон от 0 до 100
-    setProgressValue(value);
-  };
-
-  // Используем useEffect для анимации
-  useEffect(() => {
-    let intervalId;
-
-    if (isAnimated) {
-      // Запускаем интервал, который будет увеличивать текущий прогресс
-      intervalId = setInterval(() => {
-        setCurrentProgress((prev) => {
-          if (prev < progressValue) {
-            // Увеличиваем прогресс, если он меньше введенного значения
-            return prev + 1;
-          } else {
-            setTimeout(() => {
-              setCurrentProgress(0); // Сбрасываем прогресс в 0
-            }, 2000); // Задержка перед новым циклом
-            return prev; // Возвращаем текущее значение прогресса
-          }
-        });
-      }, 50); // Интервал обновления (50 мс для плавной анимации)
-    } else {
-      // Если анимация выключена, сразу устанавливаем прогресс в значение, введенное пользователем
-      setCurrentProgress(progressValue);
-    }
-
-    // Очищаем интервал при размонтировании компонента или при изменении состояния анимации
-    return () => clearInterval(intervalId);
-  }, [isAnimated, progressValue]);
+  const { currentProgress, isAnimated, isHidden, API } = useProgressAPI(0); // Инициализация API
 
   return (
     <>
@@ -82,7 +31,8 @@ export default function Home() {
       <div className={`${geistSans.variable} ${geistMono.variable}`}>
         <main className={styles.main}>
           <div className={`${styles.progress} ${styles.center}`}>
-            <div className={`${isChecked ? styles.hidden : ""}`}>
+            {/* Условный рендеринг блока */}
+            <div className={`${isHidden ? styles.hidden : ""}`}>
               <Progress progress={currentProgress} />
             </div>
 
@@ -91,22 +41,22 @@ export default function Home() {
               <Input
                 text="Value"
                 type="number"
-                value={progressValue}
-                onChange={handleInputChange}
+                value={currentProgress}
+                onChange={(e) => API.setProgress(parseInt(e.target.value, 10) || 0)}
               />
 
               {/* Переключатель для управления анимацией */}
               <Switcher
                 text="Animated"
                 checked={isAnimated}
-                onChange={handleAnimatedChange}
+                onChange={API.toggleAnimated}
               />
 
-              {/* Переключатель для управления видимостью прогресса */}
+              {/* Переключатель для управления видимостью */}
               <Switcher
                 text="Hide"
-                checked={isChecked}
-                onChange={handleHideChange}
+                checked={isHidden}
+                onChange={API.toggleHidden}
               />
             </div>
           </div>
@@ -115,3 +65,4 @@ export default function Home() {
     </>
   );
 }
+
